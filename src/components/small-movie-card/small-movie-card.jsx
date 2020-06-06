@@ -5,19 +5,19 @@ import VideoPlayer from "../video-player/video-player.jsx";
  class SmallMovieCard extends PureComponent {
   constructor(props) {
     super(props);
-
+console.log(props)
     this._playerRef = React.createRef();
+console.log()
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
+
     this._timeout = null;
   }
 
   render() {
     const {card} = this.props;
-    console.log({card})
     const {id, title, img, trailer} = card;
-//console.log({card})
-    //console.log(this.props)
+
     return (
       <article
         id={id}
@@ -46,11 +46,11 @@ import VideoPlayer from "../video-player/video-player.jsx";
 
   componentWillUnmount() {
     this._handleTimeoutReset();
+
   }
 
   _handleMouseEnter(event) {
     const {card, autoPlayTimeout, onMouseEnter} = this.props;
-
     this._timeout = setTimeout(() => {
       if (this._timeout && this._playerRef.current) {
         this._playerRef.current.play();
