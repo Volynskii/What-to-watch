@@ -1,14 +1,15 @@
 import React, {PureComponent} from "react";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
-
-
-
+import {connect} from "react-redux";
+import GenresList from "../genres-list/genres-list.jsx"
+console.log()
 class MoviesCatalog extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
       activeCard: null,
+
     };
 
     this._setActiveCard = this._setActiveCard.bind(this);
@@ -16,50 +17,20 @@ class MoviesCatalog extends PureComponent {
   }
 
   render() {
-    const {films = []} = this.props;
+    const {moviesGenreGroups = {}, activeGenre, onGenreChange} = this.props;
 
     return (
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">
           {`Catalog`}
         </h2>
-        <ul className="catalog__genres-list">
-          <li className="catalog__genres-item catalog__genres-item--active">
-            <a href="#" className="catalog__genres-link">{`All genres`}</a>
-          </li>
-          <li  className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">{`Others`}</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Comedies</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Crime</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Documentary</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Dramas</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Horror</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Kids & Family</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Romance</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Sci-Fi</a>
-          </li>
-          <li className="catalog__genres-item">
-            <a href="#" className="catalog__genres-link">Thrillers</a>
-          </li>
-        </ul>
+        <GenresList
+          genres={Object.keys(moviesGenreGroups)}
+          activeGenre={activeGenre}
+          onGenreChange={onGenreChange}/>
+
         <div className="catalog__movies-list">
-          {films.map((it = {}) => (
+          {moviesGenreGroups[activeGenre].map((it = {}) => (
             <SmallMovieCard
               key={it.id}
               card={it}
@@ -67,6 +38,7 @@ class MoviesCatalog extends PureComponent {
               onMouseLeave={this._resetActiveCard}/>
           ))}
         </div>
+
         <div className="catalog__more">
           <button className="catalog__button" type="button">
             {`Show more`}
@@ -83,6 +55,8 @@ class MoviesCatalog extends PureComponent {
   _resetActiveCard() {
     this.setState({activeCard: null});
   }
+
 }
-export default MoviesCatalog
+
+export default MoviesCatalog;
 

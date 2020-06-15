@@ -1,20 +1,27 @@
-import React, {Component, Fragment} from 'react';
-import films from "./../../mocks/films";
-
+import React from 'react';
+import {connect} from "react-redux";
 import MoviesCatalog from "../movies-catalog/movies-catalog.jsx";
 import MovieTabs from '../movie-page/movie-page.jsx'
 import {Overviews,Details,Reviews} from '../../mocks/movie-page-tabs.jsx'
-console.log()
-const App = ({films}) => (
+import {getMoviesByGenres, queryMoviesByGenre} from "./../../reducer"
+import GenresList from "../genres-list/genres-list.jsx"
+
+export const App = ({moviesGenreGroups, activeGenre, onGenreChange}) => (
   <div className="page-content">
-    <MovieTabs
-      Overviews={Overviews()}
-      Reviews={Reviews()}
-      Details={Details()}
-    />
+    <MoviesCatalog
+      moviesGenreGroups={moviesGenreGroups}
+      activeGenre={activeGenre}
+      onGenreChange={onGenreChange}/>
   </div>
 );
 
+const mapStateToProps = (state) => {
+  return {
+    moviesGenreGroups: getMoviesByGenres(state),
+    activeGenre: state.activeGenre,
+  };
+};
+const mapDispatchToProps = {onGenreChange: queryMoviesByGenre};
 
+export default connect(mapStateToProps, mapDispatchToProps)(App);
 
-export default App;

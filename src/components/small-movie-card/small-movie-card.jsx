@@ -5,9 +5,7 @@ import VideoPlayer from "../video-player/video-player.jsx";
  class SmallMovieCard extends PureComponent {
   constructor(props) {
     super(props);
-console.log(props)
     this._playerRef = React.createRef();
-console.log()
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
 

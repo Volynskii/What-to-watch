@@ -1,85 +1,59 @@
-// const smallCards = [
-//   {
-//     id: 'id1',
-//     videoSrc: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4',
-//   src:'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
-//   alt:'Fantastic Beasts: The Crimes of Grindelwald',
-//   name:'Fantastic Beasts: The Crimes of Grindelwald'
-// },
-//     {
-//       id: 'id2',
-//       videoSrc: 'https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm',
-//       src:'img/bohemian-rhapsody.jpg',
-//       alt:'Bohemian Rhapsody',
-//       name:'Bohemian Rhapsody'
-//     },
-//   {
-//     id: 'id3',
-//     src:'img/macbeth.jpg',
-//     alt:'Macbeth',
-//     name:'Macbeth'
-//   },
-//   {
-//     id: 'id4',
-//     src:'img/aviator.jpg',
-//     alt:'Aviator',
-//     name:'Aviator'
-//   },
-//   {
-//     id: 'id5',
-//     src:'img/we-need-to-talk-about-kevin.jpg',
-//     alt:'We need to talk about Kevin',
-//     name:'We need to talk about Kevin'
-//   }
-// ]
-//
-// export {smallCards}
+
 
 export default [
   {
-    id: `480d2236-6c7d-4fd3-a225-80c66710a71f`,
+    id: `id1`,
     title: `Fantastic Beasts: The Crimes of Grindelwald`,
     img: `img/fantastic-beasts-the-crimes-of-grindelwald.jpg`,
+    genre: `Fantasy`,
     trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }, {
-    id: `505f451a-0b69-47ed-96c6-66d5525d5a5e`,
+    id: `id2`,
     title: `Bohemian Rhapsody`,
     img: `img/bohemian-rhapsody.jpg`,
+    genre: `Drama`,
     trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }, {
-    id: `1fa4cb3b-6aa4-4961-b8eb-be3a92e93af7`,
+    id: `id3`,
     title: `Macbeth`,
     img: `img/macbeth.jpg`,
+    genre: `Drama`,
     trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }, {
-    id: `b15a1da5-8142-4d2a-b567-26599e333988`,
+    id: `id4`,
     title: `Aviator`,
     img: `img/aviator.jpg`,
+    genre: `Drama`,
     trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }, {
-    id: `bf8d20be-4ffc-4759-a7f7-cf5f6f0dc67b`,
+    id: `id5`,
     title: `We need to talk about Kevin`,
     img: `img/we-need-to-talk-about-kevin.jpg`,
+    genre: `Thriller`,
     trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }, {
-    id: `466623a4-c3ea-44cc-b067-3284fb8012c7`,
+    id: `id6`,
     title: `What We Do in the Shadows`,
     img: `img/what-we-do-in-the-shadows.jpg`,
+    genre: `Comedy`,
     trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }, {
-    id: `474d9e75-3dfe-4e82-a9f0-30fc54e20101`,
+    id: `id7`,
     title: `Revenant`,
     img: `img/revenant.jpg`,
+    genre: `Adventure`,
     trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   }, {
-    id: `abdc7c6e-9a4f-4497-98fb-331e8101101e`,
+    id: `id8`,
     title: `Johnny English`,
     img: `img/johnny-english.jpg`,
+    genre: `Comedy`,
     trailer: `https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4`,
   }, {
-    id: `c0ae31ad-7135-430c-8213-90acb78ad1f7`,
+    id: `id9`,
     title: `Shutter Island`,
     img: `img/shutter-island.jpg`,
+    genre: `Thriller`,
     trailer: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`,
   },
 ];
