@@ -1,19 +1,18 @@
 import React, {PureComponent} from "react";
 import VideoPlayer from "../video-player/video-player.jsx";
-
+import withPlayer from "../../hocs/with-player"
 
  class SmallMovieCard extends PureComponent {
   constructor(props) {
     super(props);
-    this._playerRef = React.createRef();
+
     this._handleMouseEnter = this._handleMouseEnter.bind(this);
     this._handleMouseLeave = this._handleMouseLeave.bind(this);
 
-    this._timeout = null;
   }
 
   render() {
-    const {card} = this.props;
+    const {card,renderPlayer} = this.props;
     const {id, title, img, trailer} = card;
 
     return (
@@ -23,13 +22,11 @@ import VideoPlayer from "../video-player/video-player.jsx";
         onMouseEnter={this._handleMouseEnter}
         onMouseLeave={this._handleMouseLeave}>
         <div className="small-movie-card__image">
-          <VideoPlayer
-            ref={this._playerRef}
-            src={trailer}
-            poster={img}
-            width={280}
-            height={175}
-            muted={true}/>
+          {renderPlayer({
+            src: trailer,
+            poster: img,
+            muted: true,
+          })}
         </div>
         <h3 className="small-movie-card__title">
           <a
@@ -42,35 +39,20 @@ import VideoPlayer from "../video-player/video-player.jsx";
     );
   }
 
-  componentWillUnmount() {
-    this._handleTimeoutReset();
+   _handleMouseEnter() {
+     const {card,  onPlayerPlay, onMouseEnter} = this.props;
 
-  }
+     onPlayerPlay();
+     onMouseEnter(card);
+   }
 
-  _handleMouseEnter(event) {
-    const {card, autoPlayTimeout, onMouseEnter} = this.props;
-    this._timeout = setTimeout(() => {
-      if (this._timeout && this._playerRef.current) {
-        this._playerRef.current.play();
-      }
-    }, autoPlayTimeout);
+   _handleMouseLeave() {
+     const {card, onPlayerPause, onMouseLeave} = this.props;
 
-    onMouseEnter(card, event);
-  }
+     onPlayerPause();
+     onMouseLeave(card);
+   }
 
-  _handleMouseLeave(event) {
-    const {card, onMouseLeave} = this.props;
-
-    this._handleTimeoutReset();
-    if (this._playerRef.current) {
-      this._playerRef.current.stop();
-    }
-
-    onMouseLeave(card, event);
-  }
-
-  _handleTimeoutReset() {
-    clearTimeout(this._timeout);
-  }
 }
-export default SmallMovieCard
+export {SmallMovieCard};
+export default withPlayer({autoPlayTimeout: 500})(SmallMovieCard);

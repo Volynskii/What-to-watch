@@ -22,6 +22,7 @@ export const GenresList = ({genres = [], activeGenre, onGenreChange}) => {
     </ul>
   );
 };
-console.log()
+
+
 export default GenresList;
 

@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import MoviesCatalog from "../movies-catalog/movies-catalog.jsx";
 import MovieTabs from '../movie-page/movie-page.jsx'
 import {Overviews,Details,Reviews} from '../../mocks/movie-page-tabs.jsx'
-import {getMoviesByGenres, queryMoviesByGenre} from "./../../reducer"
+import {getMoviesByGenres, changeMoviesActiveGenre} from "./../../reducer"
 import GenresList from "../genres-list/genres-list.jsx"
 
 export const App = ({moviesGenreGroups, activeGenre, onGenreChange}) => (
@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
     activeGenre: state.activeGenre,
   };
 };
-const mapDispatchToProps = {onGenreChange: queryMoviesByGenre};
+
+const mapDispatchToProps = {onGenreChange: changeMoviesActiveGenre};
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
 

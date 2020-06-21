@@ -1,13 +1,13 @@
 import React from "react"
 import ReactDOM from "react-dom";
-import films from "./mocks/films";
+import initialMovies from "./mocks/movies";
 import MoviesCatalog from "./components/movies-catalog/movies-catalog.jsx";
 import App from "./components/app/app.jsx";
 import {createStore} from "redux";
 import {Provider} from "react-redux";
 import reducer from "./reducer"
 
-const store = createStore(reducer)
+const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
 
 ReactDOM.render(<Provider store={store}>
   <App/>
