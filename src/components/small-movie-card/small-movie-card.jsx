@@ -1,5 +1,4 @@
 import React, {PureComponent} from "react";
-import VideoPlayer from "../video-player/video-player.jsx";
 import withPlayer from "../../hocs/with-player"
 
  class SmallMovieCard extends PureComponent {
@@ -17,7 +16,7 @@ import withPlayer from "../../hocs/with-player"
 
     return (
       <article
-        id={id}
+        id={`movie-${id}`}
         className="small-movie-card catalog__movies-card"
         onMouseEnter={this._handleMouseEnter}
         onMouseLeave={this._handleMouseLeave}>

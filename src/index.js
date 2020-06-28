@@ -1,17 +1,36 @@
-import React from "react"
+import React from "react";
 import ReactDOM from "react-dom";
-import initialMovies from "./mocks/movies";
-import MoviesCatalog from "./components/movies-catalog/movies-catalog.jsx";
-import App from "./components/app/app.jsx";
-import {createStore} from "redux";
+import thunk from "redux-thunk";
+import {createStore, applyMiddleware, compose} from "redux";
 import {Provider} from "react-redux";
-import reducer from "./reducer"
 
-const store = createStore(reducer,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+import reducer from "./reducer/index";
+import App from "./components/app/app.jsx";
+import {createApi} from "./api";
 
-ReactDOM.render(<Provider store={store}>
-  <App/>
- </Provider> ,
-document.getElementById(`root`)
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const api = createApi({
+  url: `https://es31-server.appspot.com/wtw`,
+  onError: (error) => {
+    if (error) {
+      store.dispatch({type: `NETWORK_ERROR`, error});
+    }
+    if (error.status && (error.status === 403)) {
+      store.dispatch({type: `REQUIRED_AUTHORIZATION`, error});
+    }
+  },
+});
+console.log(api)
+const store = createStore(
+  reducer,
+  composeEnhancers(
+    applyMiddleware(thunk.withExtraArgument(api))
+  )
 );
 
+ReactDOM.render(
+<Provider store={store}>
+  <App/>
+  </Provider>,
+document.getElementById(`root`)
+);
