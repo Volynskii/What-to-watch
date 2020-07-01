@@ -1,13 +1,23 @@
 export const initialState = {
-  isAuthorizationRequired: true,
+  isAuthorizationRequired: false,
   profile: null,
 };
 
 export const ActionTypes = {
   AUTHORIZE_USER: `AUTHORIZE_USER`,
   UNAUTHORIZE_USER: `UNAUTHORIZE_USER`,
+  AUTHORIZATION_REQUIRED: `AUTHORIZATION_REQUIRED`,
 };
 
+/**
+ * Пользователю необходимо авторизоваться
+ * @return {Object}
+ */
+export const requireAuthorization = () => {
+  return {
+    type: ActionTypes.AUTHORIZATION_REQUIRED,
+  };
+};
 /**
  * Сбросить данные авторизованного пользователя
  * @return {Object}
@@ -48,17 +58,14 @@ export const loginUser = (params) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.UNAUTHORIZE_USER:
-      return {
-        ...state,
-        isAuthorizationRequired: true,
-        profile: null,
-      };
-    case ActionTypes.AUTHORIZE_USER:
-      return {
-        ...state,
-        isAuthorizationRequired: false,
-        profile: action.payload
-      };
+      return {...state, profile: null};
+
+      case ActionTypes.AUTHORIZE_USER:
+      return {...state, isAuthorizationRequired: false, profile: action.payload};
+
+    case ActionTypes.AUTHORIZATION_REQUIRED:
+      return {...state, isAuthorizationRequired: true};
+
     default:
       return state;
   }
