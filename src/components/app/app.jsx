@@ -1,11 +1,16 @@
 import React,{PureComponent} from 'react';
 import {connect} from "react-redux";
-import MoviesCatalog from "../movies-catalog/movies-catalog.jsx";
-import MovieTabs from '../movie-page/movie-page.jsx'
-import {Overviews,Details,Reviews} from '../../mocks/movie-page-tabs.jsx'
-import {loadMovies, changeMoviesActiveGenre} from "../../reducer/catalog/catalog";
+import {loadMovies} from "../../reducer/catalog/catalog";
 import {getMoviesByGenres, getActiveGenre} from "../../reducer/catalog/selectors";
-import GenresList from "../genres-list/genres-list.jsx"
+import {loginUser} from "../../reducer/user/user";
+import {isAuthorizationRequired} from "../../reducer/user/selectors";
+
+
+import SignIn from "../sign-in/sign-in";
+import PageTitle from "../page-title/page-title";
+import PageHeader from "../page-header/page-header";
+import PageFooter from "../page-footer/page-footer";
+import MainPage from "../main-page/main-page";
 
 export class App extends PureComponent {
   componentDidMount() {
@@ -13,31 +18,51 @@ export class App extends PureComponent {
   }
 
   render() {
-    const {moviesGenreGroups, activeGenre, onGenreChange} = this.props;
+    if (this.props.isAuthorizationRequired) {
+      //return this._renderSignIn();
+      return <MainPage/>;
+    }
     return (
-      <div className="page-content">
-        <MoviesCatalog
-          moviesGenreGroups={moviesGenreGroups}
-          activeGenre={activeGenre}
-          onGenreChange={onGenreChange}/>
+      <MainPage/>
+    );
+  }
+
+  _renderSignIn() {
+    return (
+      <div className="user-page">
+        <PageHeader
+          className="user-page__head">
+          <PageTitle
+            className="user-page__title">
+            {`Sign in`}
+          </PageTitle>
+        </PageHeader>
+        <SignIn
+          className="user-page__content"
+          onSubmit={this.props.onUserLogin}/>
+        <PageFooter/>
       </div>
     );
   }
 }
-
 App.defaultProps = {
   loadMovies: () => {},
 };
+
+
+
 
 const mapStateToProps = (state) => {
   return {
     moviesGenreGroups: getMoviesByGenres(state),
     activeGenre: getActiveGenre(state),
+    isAuthorizationRequired: isAuthorizationRequired(state)
   };
 };
 
 const mapDispatchToProps = {
-  onGenreChange: changeMoviesActiveGenre, loadMovies
+  onGenreChange: loginUser,
+  loadMovies,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

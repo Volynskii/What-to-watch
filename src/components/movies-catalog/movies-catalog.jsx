@@ -1,11 +1,12 @@
 import React, {PureComponent} from "react";
+import PropTypes from "prop-types";
 import SmallMovieCard from "../small-movie-card/small-movie-card.jsx";
 import {connect} from "react-redux";
 import GenresList from "../genres-list/genres-list.jsx"
 import withActiveElement from "../../hocs/with-active-element";
 
 function MoviesCatalog(props) {
-  const {moviesGenreGroups = {}, activeGenre, onGenreChange, setActiveElement, resetActiveElement} = props;
+  const {moviesGenreGroups = {}, activeGenre, onGenreChange,onMoviesMore, setActiveElement, resetActiveElement} = props;
 
   return (
     <section className="catalog">
@@ -25,11 +26,16 @@ function MoviesCatalog(props) {
             onMouseLeave={resetActiveElement}/>
         ))}
       </div>
-      <div className="catalog__more">
-        <button className="catalog__button" type="button">
-          {`Show more`}
-        </button>
-      </div>
+      {(typeof onMoviesMore === `function`) && (
+        <div className="catalog__more">
+          <button
+            className="catalog__button"
+            type="button"
+            onClick={onMoviesMore}>
+            {`Show more`}
+          </button>
+        </div>
+      )}
     </section>
   );
 }

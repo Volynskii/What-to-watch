@@ -20,17 +20,17 @@ const api = createApi({
     }
   },
 });
-console.log(api)
+
 const store = createStore(
-  reducer,
-  composeEnhancers(
-    applyMiddleware(thunk.withExtraArgument(api))
-  )
+    reducer,
+    composeEnhancers(
+        applyMiddleware(thunk.withExtraArgument(api))
+    )
 );
 
 ReactDOM.render(
-<Provider store={store}>
-  <App/>
-  </Provider>,
-document.getElementById(`root`)
+    <Provider store={store}>
+      <App/>
+    </Provider>,
+    document.getElementById(`root`)
 );

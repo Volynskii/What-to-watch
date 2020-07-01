@@ -14,7 +14,7 @@ export const createApi = (options = {}) => {
   const axiosInstance = axios.create({baseURL, timeout, withCredentials});
 
   const handleSuccess = isFunction(options.onSuccess)
-    ? options.onSuccess : undefined; console.log('123')
+    ? options.onSuccess : undefined;
   const handleError = isFunction(options.onError)
     ? injectErrorHandler(options.onError) : undefined;
 
@@ -31,6 +31,18 @@ export const createApi = (options = {}) => {
     fetchMovies() {
       return axiosInstance.get(`/films`).then((responce) => {
         return responce.data.map((it) => new MovieCard(it));
+      });
+    },
+    /**
+     * Авторизовать пользователя
+     * @param {Object} params Параметры авторизации
+     * @param {string} params.email E-mail пользователя
+     * @param {string} params.password Пароль пользователя
+     * @return {Object}
+     */
+    loginUser(params) {
+      return axiosInstance.post(`/login`, params).then((responce) => {
+        return responce.data;
       });
     }
   };

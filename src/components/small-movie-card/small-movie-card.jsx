@@ -12,7 +12,7 @@ import withPlayer from "../../hocs/with-player"
 
   render() {
     const {card,renderPlayer} = this.props;
-    const {id, title, img, trailer} = card;
+    const {id, title, images, trailer} = card;
 
     return (
       <article
@@ -23,7 +23,7 @@ import withPlayer from "../../hocs/with-player"
         <div className="small-movie-card__image">
           {renderPlayer({
             src: trailer,
-            poster: img,
+            poster: images.preview,
             muted: true,
           })}
         </div>
@@ -39,7 +39,7 @@ import withPlayer from "../../hocs/with-player"
   }
 
    _handleMouseEnter() {
-     const {card,  onPlayerPlay, onMouseEnter} = this.props;
+     const {card, onPlayerPlay, onMouseEnter} = this.props;
 
      onPlayerPlay();
      onMouseEnter(card);

@@ -9,6 +9,7 @@ module.exports = {
   },
   devServer: {
     contentBase: path.join(__dirname, `public`),
+    historyApiFallback: true,
     compress: false,
     open: true,
     port: 1337,
@@ -24,5 +25,8 @@ module.exports = {
       }
     ],
   },
-  devtool: `source-map`
+  devtool: `source-map`,
+  resolve: {
+    extensions: [`.js`, `.jsx`],
+  },
 };
