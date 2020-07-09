@@ -1,30 +1,41 @@
 import React from "react";
 import PropTypes from "prop-types";
+import {compose} from "redux";
+import {Link} from "react-router-dom";
+import {withRouter} from "react-router";
+import withUser from "../../hocs/with-user";
 
-function UserBlock({user,onSignIn}) {
+function UserBlock({user, location}) {
+  const currentLocation = location && location.pathname;
   return (
     <div className="user-block">
       {user ? (
         <div className="user-block__avatar">
-          <img
-            alt={user.name}
-            src={user.avatar}
-            width="63"
-            height="63"/>
+          <Link to="/mylist">
+            <img
+              alt={user.name}
+              src={user.avatar}
+              width="63"
+              height="63"/>
+          </Link>
         </div>
       ) : (
-        <a
+        <Link
           className="user-block__link"
-          href="/sign-in"
-          onClick={onSignIn}>
+          to={{
+            pathname: `/login`,
+            state: {referrer: currentLocation},
+          }}>
           {`Sign in`}
-        </a>
+        </Link>
       )}
     </div>
   );
 }
 
 UserBlock.propTypes = {
+  /** Redux Route location */
+  location: PropTypes.object,
   /** Данные пользователя */
   user: PropTypes.shape({
     /** Имя пользователя */
@@ -36,4 +47,5 @@ UserBlock.propTypes = {
   children: PropTypes.any,
 };
 
-export default UserBlock;
+export {UserBlock};
+export default compose(withRouter, withUser)(UserBlock);
