@@ -1,11 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {compose} from "redux";
+import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {withRouter} from "react-router";
-import withUser from "../../hocs/with-user";
+import {getUserData} from "../../reducer/user/selectors";
 
-function UserBlock({user, location}) {
+function UserBlockView({user, location}) {
   const currentLocation = location && location.pathname;
   return (
     <div className="user-block">
@@ -33,9 +34,11 @@ function UserBlock({user, location}) {
   );
 }
 
-UserBlock.propTypes = {
+UserBlockView.propTypes = {
   /** Redux Route location */
-  location: PropTypes.object,
+  location: PropTypes.shape({
+    pathname: PropTypes.string,
+  }),
   /** Данные пользователя */
   user: PropTypes.shape({
     /** Имя пользователя */
@@ -47,5 +50,15 @@ UserBlock.propTypes = {
   children: PropTypes.any,
 };
 
-export {UserBlock};
-export default compose(withRouter, withUser)(UserBlock);
+const mapStateToProps = (state) => {
+  return {user: getUserData(state)};
+};
+
+
+const UserBlock = compose(
+  withRouter,
+  connect(mapStateToProps, {})
+)(UserBlockView);
+
+export {UserBlockView};
+export default UserBlock;

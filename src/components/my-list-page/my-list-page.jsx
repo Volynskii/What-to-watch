@@ -1,6 +1,8 @@
 import React,{PureComponent}  from "react";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
+
+import {MovieCardPropTypes} from "../../prop-types";
 import {Operation} from "../../reducer/movies/movies";
 import {getMyListMovies} from "../../reducer/movies/selectors";
 
@@ -11,10 +13,7 @@ import UserBlock from "../user-block/user-block";
 import MoviesCatalog from "../movies-catalog/movies-catalog";
 
 
-class MyListPage extends PureComponent {
-  componentDidMount() {
-    this.props.fetchMyListMovies();
-  }
+class MyListPageView extends PureComponent {
   render() {
     const {movies} = this.props;
 
@@ -32,16 +31,17 @@ class MyListPage extends PureComponent {
       </div>
     );
   }
+  componentDidMount() {
+    this.props.onMyListMoviesFetch();
+  }
 }
-MyListPage.propTypes = {
+MyListPageView.propTypes = {
   /** Список фильмов добавленных в список «к просмотру» */
   movies: PropTypes.arrayOf(
-    PropTypes.object,
+    MovieCardPropTypes,
   ),
   /** Получить список фильмов добавленных в список «к просмотру» */
-  fetchMyListMovies: PropTypes.func,
-  /** Вложенные элементы */
-  children: PropTypes.any,
+  onMyListMoviesFetch: PropTypes.func,
 };
 
 const mapStateToProps = (state) => {
@@ -50,8 +50,8 @@ const mapStateToProps = (state) => {
   };
 };
 const mapDispatchToProps = {
-  fetchMyListMovies: Operation.fetchMyListMovies,
+  onMyListMoviesFetch: Operation.fetchMyListMovies,
 };
-
-export {MyListPage};
-export default connect(mapStateToProps, mapDispatchToProps)(MyListPage);
+const MyListPage = connect(mapStateToProps, mapDispatchToProps)(MyListPageView);
+export {MyListPageView};
+export default MyListPage;

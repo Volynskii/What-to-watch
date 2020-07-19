@@ -1,7 +1,8 @@
 const NameSpaces = {
-  Movies: `movies`,
-  Reviews: `reviews`,
-  User: `user`,
+  MOVIES: `movies`,
+  GENRES: `genres`,
+  REVIEWS: `reviews`,
+  USER: `user`,
 };
 
 export default NameSpaces;

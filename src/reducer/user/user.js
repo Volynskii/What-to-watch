@@ -1,4 +1,7 @@
 
+export const LOGIN_ERROR_MESSAGE = `We can’t recognize this email
+and password combination. Please try again`;
+
 export const ActionTypes = {
   LOGIN_USER: `LOGIN_USER`,
   LOGOUT_USER: `LOGOUT_USER`,
@@ -43,6 +46,9 @@ export const Operation = {
     return (dispath, getState, api) => {
       return api.loginUser(params).then((user) => {
         return dispath(ActionCreator.login(user));
+      }).catch((error) => {
+        dispath(ActionCreator.loginError(LOGIN_ERROR_MESSAGE));
+        throw error;
       });
     };
   },
@@ -54,6 +60,8 @@ export const Operation = {
     return (dispath, getState, api) => {
       return api.echoUser().then((user) => {
         return dispath(ActionCreator.login(user));
+      }).catch(() => {
+        dispath(ActionCreator.logout());
       });
     };
   }

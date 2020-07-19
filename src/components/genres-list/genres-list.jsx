@@ -1,6 +1,6 @@
 import React from "react";
 
-export const GenresList = ({genres, activeGenre, onGenreChange}) => {
+function GenresList({genres, activeGenre, onGenreChange}) {
   const withActiveClass = (genre) =>
     genre === activeGenre ? `catalog__genres-item--active` : ``;
   const handleClickWith = (genre) => (event) => {
@@ -23,7 +23,7 @@ export const GenresList = ({genres, activeGenre, onGenreChange}) => {
       ))}
     </ul>
   );
-};
+}
 
 
 export default GenresList;

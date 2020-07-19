@@ -1,7 +1,9 @@
 import React, {PureComponent} from "react";
-import withPlayer from "../../hocs/with-player"
+import PropTypes from "prop-types";
 import {Link} from "react-router-dom";
+import cn from "classnames";
 import {MovieCardPropTypes} from "../../prop-types";
+import withVideoPlayer, {withVideoPlayerPropTypes} from "../../hocs/with-video-player";
 
  class SmallMovieCard extends PureComponent {
   constructor(props) {
@@ -13,47 +15,57 @@ import {MovieCardPropTypes} from "../../prop-types";
   }
 
   render() {
-    const {card,renderPlayer} = this.props;
-    const {id, title, images, trailer} = card;
+    const {className, card, renderPlayer} = this.props;
+    const {id, title, images = {}, trailer} = card;
 
     return (
       <article
         id={`movie-${id}`}
-        className="small-movie-card catalog__movies-card"
+        className={cn(`small-movie-card`, className)}
         onMouseEnter={this._handleMouseEnter}
         onMouseLeave={this._handleMouseLeave}>
-        <div className="small-movie-card__image">
-          {renderPlayer({
-            src: trailer,
-            poster: images.preview,
-            muted: true,
-          })}
-        </div>
-        <h3 className="small-movie-card__title">
-          <Link
-            className="small-movie-card__link"
-            href={`/film/${id}`}>
+        <Link
+          className="small-movie-card__link"
+          to={`/film/${id}`}>
+          <div className="small-movie-card__image">
+            {renderPlayer({
+              src: trailer,
+              poster: images.preview,
+              muted: true,
+              width: 280,
+              height: 175,
+              preload: `none`,
+            })}
+          </div>
+          <h3 className="small-movie-card__title">
             {title}
-          </Link>
-        </h3>
+          </h3>
+        </Link>
       </article>
     );
   }
 
    _handleMouseEnter() {
-     const {card, onPlayerPlay, onMouseEnter} = this.props;
-
-     onPlayerPlay();
-     onMouseEnter(card);
+     this.props.onPlayerPlay();
    }
 
    _handleMouseLeave() {
-     const {card, onPlayerPause, onMouseLeave} = this.props;
-
-     onPlayerPause();
-     onMouseLeave(card);
+     this.props.onPlayerStop();
    }
-
 }
+SmallMovieCard.defaultProps = {
+  renderPlayer: () => null,
+  onPlayerPlay: () => {},
+  onPlayerStop: () => {},
+};
+SmallMovieCard.propTypes = {
+  /** Пропсы withVideoPlayer HOC */
+  ...withVideoPlayerPropTypes,
+  /** Карточка фильма */
+  card: MovieCardPropTypes,
+  /** Дополнительный класс к контейнеру */
+  className: PropTypes.string,
+};
+
 export {SmallMovieCard};
-export default withPlayer({autoPlayTimeout: 500})(SmallMovieCard);
+export default withVideoPlayer({autoPlayTimeout: 500})(SmallMovieCard);

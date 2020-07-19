@@ -4,15 +4,11 @@ import {Link} from "react-router-dom";
 
 function Breadcrumbs({children}) {
   return (
-    <nav className="breadcrumbs">
-      <ul className="breadcrumbs__list">
-        {children}
-      </ul>
-    </nav>
+   ''
   );
 }
 
-export function Item({label, href}) {
+function Item({label, href}) {
   const Component = href ? Link : `a`;
 
   return (
@@ -37,5 +33,5 @@ Breadcrumbs.propTypes = {
     }),
   ),
 };
-
+export {Item};
 export default Breadcrumbs;
